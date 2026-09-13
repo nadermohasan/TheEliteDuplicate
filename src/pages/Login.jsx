@@ -257,7 +257,7 @@ useEffect(() => {
       <div className="top-logo-container">
         <div className="premium-logo-wrapper">
           <img
-            src="https://i.imgur.com/ETr3K2d.png"
+            src="https://i.imgur.com/fEzzMhB.png"
             alt="النخبة"
             className="premium-logo-img"
           />

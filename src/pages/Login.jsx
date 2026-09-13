@@ -20,6 +20,8 @@ export default function Auth() {
   const [partnerName, setPartnerName] = useState('');
   const [partnerFont, setPartnerFont] = useState('GE SS Two');
 
+  const logoUrl = 'https://i.imgur.com/fEzzMhB.png';
+
   useEffect(() => {
     fetch('/partner.json')
       .then(res => res.json())
@@ -30,7 +32,6 @@ export default function Auth() {
       .catch(err => {
         console.error('خطأ في تحميل النص:', err);
 
-        // قيم افتراضية في حالة فشل التحميل
         setPartnerLabel('بالتعاون مع:');
         setPartnerName('مركز ماكس');
       });
@@ -346,16 +347,25 @@ export default function Auth() {
 
       {/* --------------------------------
           الشعار فوق الكارد
-          بدون Mask / Blind Mode
       --------------------------------- */}
       <div className="top-logo-container">
-        <div className="premium-logo-wrapper">
+
+        <div
+          className="premium-logo-wrapper"
+          style={{
+            '--logo-image': `url("${logoUrl}")`
+          }}
+        >
           <img
-            src="https://i.imgur.com/fEzzMhB.png"
+            src={logoUrl}
             alt="النخبة"
             className="premium-logo-img"
           />
+
+          {/* طبقة اللمعة */}
+          <span className="logo-shine" />
         </div>
+
       </div>
 
       {/* --------------------------------
@@ -398,9 +408,11 @@ export default function Auth() {
               تحقق الإدارة
           --------------------------------- */}
           {isAdminVerify ? (
+
             <div className="input-group">
 
               <label>
+
                 <svg
                   className="label-icon"
                   viewBox="0 0 24 24"
@@ -423,9 +435,11 @@ export default function Auth() {
                 </svg>
 
                 كلمة المرور
+
               </label>
 
               <div className="input-wrapper">
+
                 <input
                   type="password"
                   value={adminPassword}
@@ -440,22 +454,27 @@ export default function Auth() {
                     textAlign: 'right'
                   }}
                 />
+
               </div>
 
             </div>
+
           ) : (
 
             <>
+
               {/* --------------------------------
                   بيانات التسجيل
               --------------------------------- */}
               {!isLoginView && (
+
                 <>
 
                   {/* الاسم الرباعي */}
                   <div className="input-group">
 
                     <label>
+
                       <svg
                         className="label-icon"
                         viewBox="0 0 24 24"
@@ -475,9 +494,11 @@ export default function Auth() {
                       </svg>
 
                       الاسم الرباعي
+
                     </label>
 
                     <div className="input-wrapper">
+
                       <input
                         type="text"
                         value={fullName}
@@ -488,6 +509,7 @@ export default function Auth() {
                         required
                         className="auth-input"
                       />
+
                     </div>
 
                   </div>
@@ -496,6 +518,7 @@ export default function Auth() {
                   <div className="input-group">
 
                     <label>
+
                       <svg
                         className="label-icon"
                         viewBox="0 0 24 24"
@@ -511,6 +534,7 @@ export default function Auth() {
                       </svg>
 
                       الفرع الدراسي
+
                     </label>
 
                     <div className="input-wrapper">
@@ -526,6 +550,7 @@ export default function Auth() {
                           cursor: 'pointer'
                         }}
                       >
+
                         <option
                           value=""
                           disabled
@@ -540,6 +565,7 @@ export default function Auth() {
                         <option value="الأدبي">
                           الأدبي
                         </option>
+
                       </select>
 
                     </div>
@@ -550,6 +576,7 @@ export default function Auth() {
                   <div className="input-group">
 
                     <label>
+
                       <svg
                         className="label-icon"
                         viewBox="0 0 24 24"
@@ -577,6 +604,7 @@ export default function Auth() {
                       </svg>
 
                       رقم الجوال
+
                     </label>
 
                     <div className="input-wrapper">
@@ -597,6 +625,7 @@ export default function Auth() {
                   </div>
 
                 </>
+
               )}
 
               {/* --------------------------------
@@ -605,6 +634,7 @@ export default function Auth() {
               <div className="input-group">
 
                 <label>
+
                   <svg
                     className="label-icon"
                     viewBox="0 0 24 24"
@@ -624,6 +654,7 @@ export default function Auth() {
                   </svg>
 
                   رقم الهوية
+
                 </label>
 
                 <div className="input-wrapper">
@@ -636,6 +667,7 @@ export default function Auth() {
                         : signupId
                     }
                     onChange={(e) => {
+
                       const val =
                         e.target.value.replace(
                           /\s/g,
@@ -647,6 +679,7 @@ export default function Auth() {
                       } else {
                         setSignupId(val);
                       }
+
                     }}
                     placeholder="أدخل رقم الهوية"
                     required
@@ -662,6 +695,7 @@ export default function Auth() {
               </div>
 
             </>
+
           )}
 
           {/* --------------------------------
@@ -672,6 +706,7 @@ export default function Auth() {
             className="submit-btn"
             disabled={loading}
           >
+
             {
               loading
                 ? 'جاري التحميل...'
@@ -681,6 +716,7 @@ export default function Auth() {
                     ? 'تسجيل الدخول'
                     : 'إنشاء حساب'
             }
+
           </button>
 
         </form>
@@ -693,6 +729,7 @@ export default function Auth() {
           {isAdminVerify ? (
 
             <p>
+
               ليس لديك صلاحيات مدير ؟
 
               <span
@@ -703,11 +740,13 @@ export default function Auth() {
               >
                 تسجيل الدخول
               </span>
+
             </p>
 
           ) : isLoginView ? (
 
             <p>
+
               ليس لديك حساب؟
 
               <span
@@ -717,11 +756,13 @@ export default function Auth() {
               >
                 إنشاء حساب جديد
               </span>
+
             </p>
 
           ) : (
 
             <p>
+
               لديك حساب بالفعل؟
 
               <span
@@ -731,6 +772,7 @@ export default function Auth() {
               >
                 تسجيل الدخول
               </span>
+
             </p>
 
           )}
@@ -751,6 +793,7 @@ export default function Auth() {
         /* -----------------------------------------
            GE SS Two
         ------------------------------------------ */
+
         @font-face {
           font-family: 'GE SS Two';
 
@@ -784,6 +827,7 @@ export default function Auth() {
         /* -----------------------------------------
            Global
         ------------------------------------------ */
+
         :root {
           color-scheme: light only;
         }
@@ -814,13 +858,16 @@ export default function Auth() {
         /* -----------------------------------------
            الصفحة
         ------------------------------------------ */
+
         .auth-page-container {
           min-height: 100vh;
 
           display: flex;
+
           flex-direction: column;
 
           align-items: center;
+
           justify-content: center;
 
           direction: rtl;
@@ -839,8 +886,8 @@ export default function Auth() {
 
         /* -----------------------------------------
            اللوجو
-           بدون Mask / Blind Mode
         ------------------------------------------ */
+
         .top-logo-container {
           position: relative;
 
@@ -863,59 +910,81 @@ export default function Auth() {
             both;
         }
 
+        /*
+          مهم جدًا:
+
+          الـ wrapper يأخذ أبعاد اللوجو
+          والـ mask يقص أي شيء خارج
+          الشكل الشفاف للصورة.
+        */
+
         .premium-logo-wrapper {
           position: relative;
 
-          display: inline-flex;
+          display: inline-block;
 
-          justify-content: center;
+          width: 190px;
 
-          align-items: center;
+          max-width: 90vw;
 
-          /*
-            مهم:
-            لا يوجد mask-image هنا
-            ولا webkit-mask-image
-            حتى يظهر اللوجو كاملًا
-          */
-
-          overflow: visible;
+          overflow: hidden;
 
           animation:
             floating
             4s
             ease-in-out
             infinite;
+
+          /*
+            استخدام نفس صورة اللوجو كـ Mask
+            يجعل اللمعة لا تظهر إلا داخل
+            المناطق غير الشفافة من اللوجو.
+          */
+
+          -webkit-mask-image: var(--logo-image);
+
+          mask-image: var(--logo-image);
+
+          -webkit-mask-repeat: no-repeat;
+
+          mask-repeat: no-repeat;
+
+          -webkit-mask-position: center;
+
+          mask-position: center;
+
+          -webkit-mask-size: contain;
+
+          mask-size: contain;
         }
 
         .premium-logo-img {
-          width: 190px;
+          width: 100%;
 
           height: auto;
 
-          max-width: 90vw;
-
           display: block;
 
-          /*
-            يحافظ على أبعاد اللوجو
-            ويمنع تشويهه أو قصه
-          */
           object-fit: contain;
 
           filter:
             drop-shadow(
               0 10px 20px
-              rgba(74, 138, 218, 0.15)
+              rgba(
+                74,
+                138,
+                218,
+                0.15
+              )
             );
         }
 
         /* -----------------------------------------
-           تأثير اللمعة
+           اللمعة
+           داخل اللوجو فقط
         ------------------------------------------ */
-        .premium-logo-wrapper::after {
-          content: "";
 
+        .logo-shine {
           position: absolute;
 
           top: 0;
@@ -926,18 +995,52 @@ export default function Auth() {
 
           height: 100%;
 
+          display: block;
+
+          pointer-events: none;
+
           background:
             linear-gradient(
-              to right,
-              rgba(255, 255, 255, 0) 0%,
-              rgba(255, 255, 255, 0.45) 50%,
-              rgba(255, 255, 255, 0) 100%
+              90deg,
+
+              rgba(
+                255,
+                255,
+                255,
+                0
+              ) 0%,
+
+              rgba(
+                255,
+                255,
+                255,
+                0.10
+              ) 25%,
+
+              rgba(
+                255,
+                255,
+                255,
+                0.75
+              ) 50%,
+
+              rgba(
+                255,
+                255,
+                255,
+                0.10
+              ) 75%,
+
+              rgba(
+                255,
+                255,
+                255,
+                0
+              ) 100%
             );
 
           transform:
             skewX(-25deg);
-
-          pointer-events: none;
 
           animation:
             softShine
@@ -949,13 +1052,15 @@ export default function Auth() {
         /* -----------------------------------------
            نص الشريك
         ------------------------------------------ */
+
         .partner-text {
           text-align: center;
 
           backdrop-filter:
             blur(4px);
 
-          padding: 8px 20px;
+          padding:
+            8px 20px;
 
           border-radius: 40px;
 
@@ -997,6 +1102,7 @@ export default function Auth() {
         /* -----------------------------------------
            الكارد
         ------------------------------------------ */
+
         .auth-card {
           background:
             rgba(
@@ -1019,7 +1125,12 @@ export default function Auth() {
 
           box-shadow:
             0 15px 35px
-            rgba(0, 0, 0, 0.07);
+            rgba(
+              0,
+              0,
+              0,
+              0.07
+            );
 
           z-index: 10;
 
@@ -1042,6 +1153,7 @@ export default function Auth() {
         /* -----------------------------------------
            العنوان
         ------------------------------------------ */
+
         .auth-title {
           text-align: center;
 
@@ -1057,6 +1169,7 @@ export default function Auth() {
         /* -----------------------------------------
            الفورم
         ------------------------------------------ */
+
         .auth-form {
           display: flex;
 
@@ -1068,6 +1181,7 @@ export default function Auth() {
         /* -----------------------------------------
            مجموعات الإدخال
         ------------------------------------------ */
+
         .input-group label {
           display: flex;
 
@@ -1087,6 +1201,7 @@ export default function Auth() {
         /* -----------------------------------------
            أيقونات الحقول
         ------------------------------------------ */
+
         .label-icon {
           width: 16px;
 
@@ -1100,6 +1215,7 @@ export default function Auth() {
         /* -----------------------------------------
            Inputs / Select
         ------------------------------------------ */
+
         .input-wrapper input,
         .input-wrapper select {
           width: 100%;
@@ -1129,6 +1245,7 @@ export default function Auth() {
         /* -----------------------------------------
            Focus
         ------------------------------------------ */
+
         .input-wrapper input:focus,
         .input-wrapper select:focus {
           border-color: #4a8ada;
@@ -1148,6 +1265,7 @@ export default function Auth() {
         /* -----------------------------------------
            زر الدخول
         ------------------------------------------ */
+
         .submit-btn {
           width: 100%;
 
@@ -1212,6 +1330,7 @@ export default function Auth() {
         /* -----------------------------------------
            تبديل Login / Signup
         ------------------------------------------ */
+
         .toggle-view {
           text-align: center;
 
@@ -1239,7 +1358,9 @@ export default function Auth() {
         /* -----------------------------------------
            Animation: Logo Entrance
         ------------------------------------------ */
+
         @keyframes logoEntrance {
+
           from {
             opacity: 0;
 
@@ -1253,12 +1374,15 @@ export default function Auth() {
             transform:
               translateY(0);
           }
+
         }
 
         /* -----------------------------------------
            Animation: Floating
         ------------------------------------------ */
+
         @keyframes floating {
+
           0%,
           100% {
             transform:
@@ -1269,12 +1393,15 @@ export default function Auth() {
             transform:
               translateY(-8px);
           }
+
         }
 
         /* -----------------------------------------
            Animation: Card
         ------------------------------------------ */
+
         @keyframes cardFadeIn {
+
           from {
             opacity: 0;
 
@@ -1288,12 +1415,15 @@ export default function Auth() {
             transform:
               translateY(0);
           }
+
         }
 
         /* -----------------------------------------
            Animation: Shine
         ------------------------------------------ */
+
         @keyframes softShine {
+
           0% {
             left: -120%;
           }
@@ -1305,12 +1435,15 @@ export default function Auth() {
           100% {
             left: 140%;
           }
+
         }
 
         /* -----------------------------------------
            Animation: Partner Text
         ------------------------------------------ */
+
         @keyframes fadeInUp {
+
           from {
             opacity: 0;
 
@@ -1324,17 +1457,17 @@ export default function Auth() {
             transform:
               translateY(0);
           }
+
         }
 
         /* -----------------------------------------
            Mobile
         ------------------------------------------ */
+
         @media (max-width: 480px) {
 
-          .premium-logo-img {
+          .premium-logo-wrapper {
             width: 165px;
-
-            max-width: 85vw;
           }
 
           .auth-card {

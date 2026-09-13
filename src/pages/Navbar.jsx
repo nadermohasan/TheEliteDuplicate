@@ -50,7 +50,7 @@ export default function Navbar({ userName = 'مستخدم', role = 'student' }) 
         <div className="logo-section">
           <div className="logo-wrapper-dash">
             <div className="logo-glow"></div>
-            <img src="https://i.imgur.com/ETr3K2d.png" alt="شعار المركز" className="logo-img-dash" />
+            <img src="https://i.imgur.com/VAjkMeH.png" alt="شعار المركز" className="logo-img-dash" />
           </div>
         </div>
 
